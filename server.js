@@ -54,6 +54,7 @@ app.post('/api/getMovies', (req, res) => {
 
 	connection.end();
 });
+
 app.post('/api/loadRecipes', (req, res) => {
 	let string = JSON.stringify(recipes);
 	console.log(string);
