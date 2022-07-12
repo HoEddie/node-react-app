@@ -309,12 +309,11 @@ const MovieSelection = (props) => {
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          
-          <MenuItem value={"Morbius"}>Morbius</MenuItem>
-          <MenuItem value={"The Batman"}>The Batman</MenuItem>
-          <MenuItem value={"The God Father"}>The God Father</MenuItem>
-          <MenuItem value={"The Lego Movie"}>The Lego Movie</MenuItem>
-          <MenuItem value={"Morbius 2"}>Morbius 2</MenuItem>
+
+          {props.movieList.map((movie) => {
+          return <MenuItem value = {movie.name}>{movie.name}</MenuItem>
+        
+          })}   
 
         </Select>
       </FormControl>

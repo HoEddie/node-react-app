@@ -31,11 +31,13 @@ const recipes = [
 	},
 ];
 
+/*
 app.post('/api/getMovies', (req, res) => {
 	let string = JSON.stringify(movies);
 	console.log(string);
 	res.send({express: string});
 });
+*/
 
 app.post('/api/getMovies', (req, res) => {
 	let connection = mysql.createConnection(config);
@@ -104,6 +106,7 @@ app.post('/api/loadUserSettings', (req, res) => {
 });
 
 
-
-app.listen(port, () => console.log(`Listening on port ${port}`)); //for the dev version
+//for the dev version
+//app.listen(port, () => console.log(`Listening on port ${port}`)); 
 //app.listen(3000, '129.97.25.211'); //for the deployed version, specify the IP address of the server
+app.listen(port, '172.31.31.77');
