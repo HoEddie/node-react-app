@@ -1,9 +1,8 @@
 
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import PropTypes from 'prop-types';
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
-import React, { useState } from 'react';
 import { createTheme, ThemeProvider, styled, makeStyles, withStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -19,8 +18,8 @@ import FormLabel from '@material-ui/core/FormLabel';
 import Button from '@material-ui/core/Button'
 
 //Dev mode
-const serverURL = "http://ec2-18-216-101-119.us-east-2.compute.amazonaws.com:3062"; //enable for dev mode
-
+//const serverURL = "http://ec2-18-216-101-119.us-east-2.compute.amazonaws.com:3062"; //enable for dev mode
+const serverURL = "";
 //Deployment mode instructions
 //const serverURL = "http://ov-research-4.uwaterloo.ca:PORT"; //enable for deployed mode; Change PORT to the port number given to you;
 //To find your port number: 
@@ -108,6 +107,8 @@ class Home extends Component {
     const { classes } = this.props;
 
     return (
+      <Review></Review>
+      /*
       <MuiThemeProvider theme={theme}>
         <div className={classes.root}>
           <CssBaseline />
@@ -118,7 +119,7 @@ class Home extends Component {
           </Paper>
 
         </div>
-      </MuiThemeProvider>
+      </MuiThemeProvider>*/
     );
   }
 }

@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 app.use(express.static(path.join(__dirname, "client/build")));
 
-const recipes = [
+/*const recipes = [
 	{
 		title: 'Fruit Salad',
 		difficulty: '2',
@@ -29,7 +29,7 @@ const recipes = [
 		instructions: "Wash all fruits and vegetables. Slice avocados and apples. Mix all ingredients and wrap them in a tortilla bread.",
 		recipeID: 2
 	},
-];
+];*/
 
 /*
 app.post('/api/getMovies', (req, res) => {
@@ -57,12 +57,14 @@ app.post('/api/getMovies', (req, res) => {
 	connection.end();
 });
 
+/*
 app.post('/api/loadRecipes', (req, res) => {
 	let string = JSON.stringify(recipes);
 	console.log(string);
 	res.send({ express: string });
-});
+});*/
 
+/*
 app.post('/api/findRecipe', (req, res) => {
 	let ingredientSearchTerm = req.body.searchTerm;
 	console.log("ingredientSearchTerm: ", ingredientSearchTerm);
@@ -79,8 +81,8 @@ app.post('/api/findRecipe', (req, res) => {
 	console.log(string);
 	let obj = JSON.parse(string);
 	res.send({ express: string });
-});
-
+});*/
+/*
 app.post('/api/loadUserSettings', (req, res) => {
 
 	let connection = mysql.createConnection(config);
@@ -103,7 +105,7 @@ app.post('/api/loadUserSettings', (req, res) => {
 	});
 	connection.end();
 
-});
+});*/
 
 
 //for the dev version
