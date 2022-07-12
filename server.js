@@ -31,7 +31,29 @@ const recipes = [
 	},
 ];
 
+app.post('/api/getMovies', (req, res) => {
+	let string = JSON.stringify(movies);
+	console.log(string);
+	res.send({express: string});
+});
 
+app.post('/api/getMovies', (req, res) => {
+	let connection = mysql.createConnection(config);
+	
+	let sql = 'SELECT * FROM movies';
+	console.log(sql);
+
+	connection.query(sql, (error, results, fields) => {
+		if (error){
+			return console.error(error.message);
+		}
+
+		let string = JSON.stringify(results);
+		res.send({ express: string});
+	});
+
+	connection.end();
+});
 app.post('/api/loadRecipes', (req, res) => {
 	let string = JSON.stringify(recipes);
 	console.log(string);
@@ -39,19 +61,20 @@ app.post('/api/loadRecipes', (req, res) => {
 });
 
 app.post('/api/findRecipe', (req, res) => {
-	let calorieSearchTerm = req.body.calorieSearchTerm;
-	console.log("calorieSearchTerm: ", calorieSearchTerm);
+	let ingredientSearchTerm = req.body.searchTerm;
+	console.log("ingredientSearchTerm: ", ingredientSearchTerm);
 
-	const foundRecipesByCalorie = recipes.filter(function (recipe) {
-		if (calorieSearchTerm) {
-		  return parseInt(recipe.calories) <= parseInt(calorieSearchTerm);
+	const foundRecipesByIngredients = recipes.filter(function (recipe) {
+		if (ingredientSearchTerm) {
+			console.log('Filtered by: ', ingredientSearchTerm);
+			return recipe.ingredients.includes(ingredientSearchTerm);
 		} else {
-		  return recipe;
+			return recipe;
 		}
-	  });
-
-	let string = JSON.stringify(foundRecipesByCalorie);
+	});
+	let string = JSON.stringify(foundRecipesByIngredients);
 	console.log(string);
+	let obj = JSON.parse(string);
 	res.send({ express: string });
 });
 
