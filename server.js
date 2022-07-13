@@ -43,7 +43,7 @@ app.post('/api/getMovies', (req, res) => {
 app.post('/api/getMovies', (req, res) => {
 	let connection = mysql.createConnection(config);
 	
-	let sql = 'SELECT * FROM movies';
+	let sql = 'SELECT * FROM e52ho.movies';
 
 	console.log(sql);
 
