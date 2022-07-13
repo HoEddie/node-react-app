@@ -1,9 +1,5 @@
-
-import React, { Component, useState } from 'react';
-import PropTypes from 'prop-types';
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Paper from "@material-ui/core/Paper";
-import { createTheme, ThemeProvider, styled, makeStyles, withStyles, MuiThemeProvider } from '@material-ui/core/styles';
+import React, { useState, Component } from 'react';
+import { createTheme, ThemeProvider, styled, makeStyles, withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -16,10 +12,10 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
 import Button from '@material-ui/core/Button'
-
+import PropTypes from 'prop-types';
 //Dev mode
-//const serverURL = "http://ec2-18-216-101-119.us-east-2.compute.amazonaws.com:3062"; //enable for dev mode
-const serverURL = "";
+const serverURL = "http://ec2-18-216-101-119.us-east-2.compute.amazonaws.com:3062"; //enable for dev mode
+//const serverURL = "";
 //Deployment mode instructions
 //const serverURL = "http://ov-research-4.uwaterloo.ca:PORT"; //enable for deployed mode; Change PORT to the port number given to you;
 //To find your port number: 
@@ -27,7 +23,7 @@ const serverURL = "";
 //env | grep "PORT"
 //copy the number only and paste it in the serverURL in place of PORT, e.g.: const serverURL = "http://ov-research-4.uwaterloo.ca:3000";
 
-const fetch = require("node-fetch");
+/*const fetch = require("node-fetch");
 
 class Home extends Component {
   constructor(props) {
@@ -36,97 +32,113 @@ class Home extends Component {
       userID: 1,
       mode: 0
     }
-  };
+  };*/
 
-  componentDidMount() {
-    //this.loadUserSettings();
-  }
+  // componentDidMount() {
+  //   //this.loadUserSettings();
+  // }
 
 
-  loadUserSettings() {
-    this.callApiLoadUserSettings()
-      .then(res => {
-        //console.log("loadUserSettings returned: ", res)
-        var parsed = JSON.parse(res.express);
-        console.log("loadUserSettings parsed: ", parsed[0].mode)
-        this.setState({ mode: parsed[0].mode });
-      });
-  }
+  // loadUserSettings() {
+  //   this.callApiLoadUserSettings()
+  //     .then(res => {
+  //       //console.log("loadUserSettings returned: ", res)
+  //       var parsed = JSON.parse(res.express);
+  //       console.log("loadUserSettings parsed: ", parsed[0].mode)
+  //       this.setState({ mode: parsed[0].mode });
+  //     });
+  // }
 
-  componentDidMount() {
-    this.loadGetMovies();
-  }
+  // componentDidMount() {
+  //   this.loadGetMovies();
+  // }
 
-  loadGetMovies() {
-    this.callApiGetMovie()
-    .then(res => {
-      //console.log("loadUserSettings returned: ", res)
-      var parsed = JSON.parse(res.express);
-      console.log("loadGetMovies parsed: ", parsed[0].mode)
-      this.setMovieList(parsed);
-    });
-  }
+  // loadGetMovies() {
+  //   this.callApiGetMovie()
+  //   .then(res => {
+  //     //console.log("loadUserSettings returned: ", res)
+  //     var parsed = JSON.parse(res.express);
+  //     console.log("loadGetMovies parsed: ", parsed[0].mode)
+  //     this.setMovieList(parsed);
+  //   });
+  // }
   
-  callApiGetMovie = async () => {
-    const url = serverURL + "/api/getMovie";
-    console.log(url);
+  // callApiAddReview = async () => {
+  //   const url = serverURL + "/api/addReview";
+  //   console.log(url);
 
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+  //   // add some stuff to response varaible
+  //   const response = await fetch(url, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
 
-      }
-    });
-    const body = await response.json();
-    if(response.status !== 200) throw Error(body.message);
-    console.log("Movies: ", body);
-    return body;
-  }
+  //     },
+  //     body: JSON.stringify({
+  //       // something here
+  //       movies_id: selectedMovie,
+  //       reviewTitle: enteredTitle,
+  //       reviewContent: enteredReview,
+  //       reviewScore: selectedRating,
+  //       user_userID: userID
+  //     })
+  //   });
 
-  callApiLoadUserSettings = async () => {
-    const url = serverURL + "/api/loadUserSettings";
+  //   const body = await response.json();
+  //   if(response.status !== 200) throw Error(body.message);
+  //   console.log("Movies: ", body);
+  //   return body;
+    
+  // }
 
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        //authorization: `Bearer ${this.state.token}`
-      },
-      body: JSON.stringify({
-        userID: this.state.userID
-      })
-    });
-    const body = await response.json();
-    if (response.status !== 200) throw Error(body.message);
-    console.log("User settings: ", body);
-    return body;
-  }
+  // callApiGetMovie = async () => {
+  //   const url = serverURL + "/api/getMovie";
+  //   console.log(url);
 
-  render() {
+  //   const response = await fetch(url, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+
+  //     }
+  //   });
+  //   const body = await response.json();
+  //   if(response.status !== 200) throw Error(body.message);
+  //   console.log("Movies: ", body);
+  //   return body;
+  // }
+
+  // callApiLoadUserSettings = async () => {
+  //   const url = serverURL + "/api/loadUserSettings";
+
+  //   const response = await fetch(url, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       //authorization: `Bearer ${this.state.token}`
+  //     },
+  //     body: JSON.stringify({
+  //       userID: this.state.userID
+  //     })
+  //   });
+  //   const body = await response.json();
+  //   if (response.status !== 200) throw Error(body.message);
+  //   console.log("User settings: ", body);
+  //   return body;
+  // }
+
+  /*render() {
     const { classes } = this.props;
 
     return (
       <Review></Review>
-      /*
-      <MuiThemeProvider theme={theme}>
-        <div className={classes.root}>
-          <CssBaseline />
-          <Paper
-            className={classes.paper}
-          >
-            {mainMessage}
-          </Paper>
-
-        </div>
-      </MuiThemeProvider>*/
     );
-  }
-}
-
+  }*/
+//}
+/*
 Home.propTypes = {
   classes: PropTypes.object.isRequired
-};
+};*/
 
 const lightTheme = createTheme({
   palette: {
@@ -163,7 +175,98 @@ const Review = () => {
   const [ratingValidation, setRatingValidation] = React.useState('');
   const [submissionValidation, setSubmissionValidation] = React.useState('');
   const [userState, setUserState] = React.useState(false);
-  const [movieList, setMovieList] = React.useState('');
+  //movieList is empty
+  const [movieList, setMovieList] = React.useState([]);
+  const [userID, setUserID] = React.useState(1);
+  
+  React.useEffect(() => {
+    loadGetMovies();
+  }, []);
+
+  const loadGetMovies = () => {
+    callApiGetMovies()
+    .then(res => {
+      console.log("loadUserSettings returned: ", res);
+      var parsed = JSON.parse(res.express);
+      console.log("loadGetMovies parsed: ", parsed);
+      setMovieList(parsed);
+    })
+  }
+
+  //Call handleAddReview after you submit and validation
+  const handleAddReview = () => {
+    callApiAddReview()
+    .then(res => {
+      console.log("loadUserSettings returned: ", res);
+      var parsed = JSON.parse(res.express);
+      console.log("loadGetMovies parsed: ", parsed);
+    })
+  }
+  
+  const callApiGetMovies = async () => {
+    const url = serverURL + "/api/getMovies";
+    console.log(url);
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+
+      }
+    });
+    const body = await response.json();
+    if(response.status !== 200) throw Error(body.message);
+    console.log("Movies: ", body);
+    return body;
+  }
+
+  const callApiAddReview = async () => {
+    const url = serverURL + "/api/addReview";
+    console.log(url);
+
+    // add some stuff to response varaible
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+
+      },
+      body: JSON.stringify({
+        // something here
+        movies_id: selectedMovie,
+        reviewTitle: enteredTitle,
+        reviewContent: enteredReview,
+        reviewScore: selectedRating,
+        user_userID: userID
+      })
+    });
+
+    const body = await response.json();
+    if(response.status !== 200) throw Error(body.message);
+    console.log("Movies: ", body);
+    return body;
+    
+  }
+
+
+ /* callApiLoadUserSettings = async () => {
+    const url = serverURL + "/api/loadUserSettings";
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        //authorization: `Bearer ${this.state.token}`
+      },
+      body: JSON.stringify({
+        userID: this.state.userID
+      })
+    });
+    const body = await response.json();
+    if (response.status !== 200) throw Error(body.message);
+    console.log("User settings: ", body);
+    return body;
+  }*/
 
   const handleSelectedMovie = (event) => {
     setSelectedMovie(event.target.value);
@@ -202,6 +305,7 @@ const Review = () => {
       setRatingValidation("")
 
     }
+
     if (enteredTitle && enteredReview && selectedRating) {
       setSubmissionValidation("Your review has been recieved")
       const d =
@@ -232,7 +336,8 @@ const Review = () => {
           Review a Movie
         </Typography>
 
-        <MovieSelection onSearch={handleSelectedMovie} />
+        <MovieSelection onSearch={handleSelectedMovie} movieList = {movieList}/*retrievedMovies={movieList}*//>
+        
 
         <p>
           {titleValidation}
@@ -255,6 +360,7 @@ const Review = () => {
         <p>
           {submissionValidation}
         </p>
+
         <Button
           variant="contained"
           color="primary"
@@ -307,14 +413,14 @@ const MovieSelection = (props) => {
           label="Select Movie"
           onChange={props.onSearch}
         >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
 
-          {props.movieList.map((movie) => {
-          return <MenuItem value = {movie.name}>{movie.name}</MenuItem>
-        
-          })}   
+          {/* {props.retrievedMovies.map((movie) => {
+            return <MenuItem value = {movie.name}>{movie.name}</MenuItem>
+          })}; */}
+
+          {/* {props.movieList.map((movie) => (
+            <MenuItem value = {movie.name}> {movie.name} </MenuItem>
+          ))}; */}
 
         </Select>
       </FormControl>
@@ -379,10 +485,28 @@ const ReviewRating = (props) => {
   )
 }
 
+const List = (props) => {
+  return (
+    <ul>
+      {props.list.map((item) => {
+        return (
+          <Item item={item} />
+        );
+      })}
+    </ul>
 
+  )
+}
 
-
+const Item = (props) => {
+  return (
+    <li>
+      <p> {"Movie: " + props.item.movie}</p>
+      <p> {"Review Title: " + props.item.title}</p>
+      <p>{"Review: " + props.item.review}</p>
+      <p>{"Rating: " + props.item.rating}</p>
+    </li>
+  )
+}
 
 export default Review;
-
-//export default withStyles(styles)(Home);

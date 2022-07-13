@@ -39,10 +39,12 @@ app.post('/api/getMovies', (req, res) => {
 });
 */
 
+//Recieves POST req and retrieve all records of movies from MySQL
 app.post('/api/getMovies', (req, res) => {
 	let connection = mysql.createConnection(config);
 	
 	let sql = 'SELECT * FROM movies';
+
 	console.log(sql);
 
 	connection.query(sql, (error, results, fields) => {
@@ -57,6 +59,29 @@ app.post('/api/getMovies', (req, res) => {
 	connection.end();
 });
 
+app.post('/api/addReview', (req, res) => {
+	let connection = mysql.createConnection(config);
+
+	//test the insert statement in query
+	let sql = 'INSERT INTO Review (reviewTitle, reviewContent, reviewScore, user_userID, movies_id) VALUES (?,?,?,?,?)';
+	let data = [req.body.reviewTitle,req.body.reviewContent,req.body.reviewScore,req.body.user_userID,req.body.movies_id];
+	
+
+	console.log("reviewTitle: ", reviewTitle);
+	console.log("reviewContent ", reviewContent);
+	//Add more console logs (optional)
+	console.log(sql);
+	connection.query(sql, data, (error, results, fields) => {
+		if (error){
+			return console.error(error.message);
+		}
+
+		let object = JSON.parse(results);
+		res.send({ express: object});
+	});
+
+	connection.end();
+})
 /*
 app.post('/api/loadRecipes', (req, res) => {
 	let string = JSON.stringify(recipes);
