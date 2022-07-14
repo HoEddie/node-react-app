@@ -14,8 +14,8 @@ import FormLabel from '@material-ui/core/FormLabel';
 import Button from '@material-ui/core/Button'
 import PropTypes from 'prop-types';
 //Dev mode
-const serverURL = "http://ec2-18-216-101-119.us-east-2.compute.amazonaws.com:3062"; //enable for dev mode
-//const serverURL = "";
+//const serverURL = "http://ec2-18-216-101-119.us-east-2.compute.amazonaws.com:3062"; //enable for dev mode
+const serverURL = "";
 //Deployment mode instructions
 //const serverURL = "http://ov-research-4.uwaterloo.ca:PORT"; //enable for deployed mode; Change PORT to the port number given to you;
 //To find your port number: 
@@ -190,6 +190,7 @@ const Review = () => {
       var parsed = JSON.parse(res.express);
       console.log("loadGetMovies parsed: ", parsed);
       setMovieList(parsed);
+      console.log(movieList);
     })
   }
 
@@ -336,7 +337,7 @@ const Review = () => {
           Review a Movie
         </Typography>
 
-        <MovieSelection onSearch={handleSelectedMovie} movieList = {movieList}/*retrievedMovies={movieList}*//>
+        <MovieSelection onSearch={handleSelectedMovie} movieList = {movieList} movieName = {selectedMovie}/*retrievedMovies={movieList}*//>
         
 
         <p>
@@ -411,16 +412,19 @@ const MovieSelection = (props) => {
           labelId="movie-select"
           id="movie-select"
           label="Select Movie"
+          value =  {props.movieName}
           onChange={props.onSearch}
         >
 
           {/* {props.retrievedMovies.map((movie) => {
             return <MenuItem value = {movie.name}>{movie.name}</MenuItem>
           })}; */}
+          
+          <MenuItem value = ""> </MenuItem>
 
-          {/* {props.movieList.map((movie) => (
-            <MenuItem value = {movie.name}> {movie.name} </MenuItem>
-          ))}; */}
+          {props.movieList.map((movie) => {
+            return ( <MenuItem value = {movie.name}> {movie.name} </MenuItem> )
+          })}; 
 
         </Select>
       </FormControl>
@@ -485,6 +489,7 @@ const ReviewRating = (props) => {
   )
 }
 
+/*
 const List = (props) => {
   return (
     <ul>
@@ -496,13 +501,14 @@ const List = (props) => {
     </ul>
 
   )
-}
+}*/
 
 const Item = (props) => {
   return (
     <li>
       <p> {"Movie: " + props.item.movie}</p>
-      <p> {"Review Title: " + props.item.title}</p>
+      {/* <p> {"Review Title: " + props.item.title}</p> */}
+      <p> {"Review Title: " + props.item.name}</p>
       <p>{"Review: " + props.item.review}</p>
       <p>{"Rating: " + props.item.rating}</p>
     </li>
