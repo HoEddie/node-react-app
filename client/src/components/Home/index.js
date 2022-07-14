@@ -170,6 +170,7 @@ const Review = () => {
   const [enteredTitle, setEnteredTitle] = React.useState('');
   const [enteredReview, setEnteredReview] = React.useState('');
   const [selectedRating, setSelectedRating] = React.useState('');
+  const [movieValidation, setMovieValidation] = React.useState('');
   const [titleValidation, setTitleValidation] = React.useState('');
   const [reviewValidation, setReviewValidation] = React.useState('');
   const [ratingValidation, setRatingValidation] = React.useState('');
@@ -204,6 +205,7 @@ const Review = () => {
     })
   }
   
+  //Calls getMovie API
   const callApiGetMovies = async () => {
     const url = serverURL + "/api/getMovies";
     console.log(url);
@@ -221,6 +223,7 @@ const Review = () => {
     return body;
   }
 
+  //Calls addReview API
   const callApiAddReview = async () => {
     const url = serverURL + "/api/addReview";
     console.log(url);
@@ -233,7 +236,6 @@ const Review = () => {
 
       },
       body: JSON.stringify({
-        // something here
         movies_id: selectedMovie,
         reviewTitle: enteredTitle,
         reviewContent: enteredReview,
@@ -286,7 +288,12 @@ const Review = () => {
   };
 
   function validateInputs() {
-
+    if (selectedMovie === "") {
+      setMovieValidation("Please select a movie")
+    } else {
+      setMovieValidation("");
+      
+    }
     if (enteredTitle === "") {
       setTitleValidation("Please enter your review title")
     } else {
@@ -307,7 +314,7 @@ const Review = () => {
 
     }
 
-    if (enteredTitle && enteredReview && selectedRating) {
+    if (enteredTitle && enteredReview && selectedRating && selectedMovie) {
       setSubmissionValidation("Your review has been recieved")
       const d =
         {
@@ -337,6 +344,9 @@ const Review = () => {
           Review a Movie
         </Typography>
 
+        <p>
+          {movieValidation}
+        </p>
         <MovieSelection onSearch={handleSelectedMovie} movieList = {movieList} movieName = {selectedMovie}/*retrievedMovies={movieList}*//>
         
 
@@ -408,7 +418,7 @@ const MovieSelection = (props) => {
           Select a Movie
         </InputLabel>
         <Select
-
+yarn
           labelId="movie-select"
           id="movie-select"
           label="Select Movie"

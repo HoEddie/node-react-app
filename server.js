@@ -61,6 +61,7 @@ app.post('/api/getMovies', (req, res) => {
 	connection.end();
 });
 
+//Recieves user-created review and inserts data into db
 app.post('/api/addReview', (req, res) => {
 	let connection = mysql.createConnection(config);
 
