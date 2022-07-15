@@ -65,14 +65,10 @@ app.post('/api/getMovies', (req, res) => {
 app.post('/api/addReview', (req, res) => {
 	let connection = mysql.createConnection(config);
 
-	//test the insert statement in query
-	let sql = 'INSERT INTO Review (reviewTitle, reviewContent, reviewScore, user_userID, movies_id) VALUES (?,?,?,?,?)';
-	let data = [req.body.reviewTitle,req.body.reviewContent,req.body.reviewScore,req.body.user_userID,req.body.movies_id];
-	
-
-	console.log("reviewTitle: ", reviewTitle);
-	console.log("reviewContent ", reviewContent);
-	//Add more console logs (optional)
+	//let sql = 'INSERT INTO Review (reviewTitle, reviewContent, reviewScore, user_userID, movies_id) VALUES (?,?,?,?,?)';
+	//let data = [req.body.reviewTitle,req.body.reviewContent,req.body.reviewScore,req.body.user_userID,req.body.movies_id];
+	let sql = 'INSERT INTO Review (user_userID, movies_id, reviewTitle, reviewContent, reviewScore) VALUES (?,?,?,?,?)';
+	let data = [req.body.user_userID,req.body.movies_id,req.body.reviewTitle,req.body.reviewContent,req.body.reviewScore];
 	console.log(sql);
 	connection.query(sql, data, (error, results, fields) => {
 		if (error){

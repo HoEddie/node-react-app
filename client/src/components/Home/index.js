@@ -15,7 +15,7 @@ import Button from '@material-ui/core/Button'
 import PropTypes from 'prop-types';
 //Dev mode
 //const serverURL = "http://ec2-18-216-101-119.us-east-2.compute.amazonaws.com:3062"; //enable for dev mode
-const serverURL = "";
+const serverURL = ""; //enable for local development
 //Deployment mode instructions
 //const serverURL = "http://ov-research-4.uwaterloo.ca:PORT"; //enable for deployed mode; Change PORT to the port number given to you;
 //To find your port number: 
@@ -178,12 +178,14 @@ const Review = () => {
   const [userState, setUserState] = React.useState(false);
   //movieList is empty
   const [movieList, setMovieList] = React.useState([]);
+  const [movieID, setMovieID] = React.useState();
   const [userID, setUserID] = React.useState(1);
   
   React.useEffect(() => {
     loadGetMovies();
   }, []);
 
+  //Loads apis
   const loadGetMovies = () => {
     callApiGetMovies()
     .then(res => {
@@ -204,7 +206,16 @@ const Review = () => {
       console.log("loadGetMovies parsed: ", parsed);
     })
   }
+
+
+  // const handleMovieID = (movieList, selectedMovie) => {
+  //   movieList.map((movieID) => {
+  //     if (movieID.name === selectedMovie){
+  //         return setMovieID(movieID.id);
+  //     }})}
   
+
+
   //Calls getMovie API
   const callApiGetMovies = async () => {
     const url = serverURL + "/api/getMovies";
@@ -236,11 +247,17 @@ const Review = () => {
 
       },
       body: JSON.stringify({
-        movies_id: selectedMovie,
+        movies_id: movieID,
         reviewTitle: enteredTitle,
         reviewContent: enteredReview,
         reviewScore: selectedRating,
         user_userID: userID
+
+        // reviewTitle: enteredTitle,
+        // reviewContent: enteredReview,
+        // reviewScore: selectedRating,
+        // user_userID: userID,
+        // movies_id: 1
       })
     });
 
@@ -271,8 +288,17 @@ const Review = () => {
     return body;
   }*/
 
+  //Input handlers
+
   const handleSelectedMovie = (event) => {
     setSelectedMovie(event.target.value);
+
+    //Compares selected movie to movie map and returns the movie id
+    movieList.map((movieID) => {
+      if (movieID.name === event.target.value){
+        return setMovieID(movieID.id);
+      }
+    })
   };
 
   const handleEnteredTitle = (event) => {
@@ -287,6 +313,7 @@ const Review = () => {
     setSelectedRating(event.target.value);
   };
 
+  //Input Validation
   function validateInputs() {
     if (selectedMovie === "") {
       setMovieValidation("Please select a movie")
@@ -314,6 +341,7 @@ const Review = () => {
 
     }
 
+    //Call handleAddReview if validation is cleared (send data to Users table)
     if (enteredTitle && enteredReview && selectedRating && selectedMovie) {
       setSubmissionValidation("Your review has been recieved")
       const d =
@@ -324,7 +352,10 @@ const Review = () => {
           rating: selectedRating
         }
       userReview.push(d)
-      
+      handleAddReview();
+      // handleMovieID(movieList, selectedMovie);
+      // console.log(handleMovieID(movieList, selectedMovie));
+      // console.log(movieID);
     }
 
   }
@@ -347,7 +378,11 @@ const Review = () => {
         <p>
           {movieValidation}
         </p>
-        <MovieSelection onSearch={handleSelectedMovie} movieList = {movieList} movieName = {selectedMovie}/*retrievedMovies={movieList}*//>
+        <MovieSelection 
+        onSearch={handleSelectedMovie} 
+        movieList = {movieList} 
+        movieName = {selectedMovie}
+        />
         
 
         <p>
@@ -388,10 +423,10 @@ const Review = () => {
 
   );
 }
-const userReview = [
- 
-]
 
+const userReview = []
+
+//Outputs user review to site 
 const Reviews = () => {
   return (
     <ul>
@@ -409,7 +444,7 @@ const Reviews = () => {
   )
 }
 
-
+//Movie Select Element; dropdown includes all movies from movies table
 const MovieSelection = (props) => {
   return (
     <div>
@@ -418,17 +453,13 @@ const MovieSelection = (props) => {
           Select a Movie
         </InputLabel>
         <Select
-yarn
+          yarn
           labelId="movie-select"
           id="movie-select"
           label="Select Movie"
           value =  {props.movieName}
           onChange={props.onSearch}
         >
-
-          {/* {props.retrievedMovies.map((movie) => {
-            return <MenuItem value = {movie.name}>{movie.name}</MenuItem>
-          })}; */}
           
           <MenuItem value = ""> </MenuItem>
 
@@ -442,6 +473,7 @@ yarn
   )
 }
 
+//Review Title
 const ReviewTitle = (props) => {
   return (
     <div>
@@ -459,6 +491,7 @@ const ReviewTitle = (props) => {
   )
 }
 
+//Review Body
 const ReviewBody = (props) => {
   return (
     <div>
@@ -476,6 +509,7 @@ const ReviewBody = (props) => {
   )
 }
 
+//Review Rating
 const ReviewRating = (props) => {
   return (
     <div>
@@ -513,16 +547,16 @@ const List = (props) => {
   )
 }*/
 
-const Item = (props) => {
-  return (
-    <li>
-      <p> {"Movie: " + props.item.movie}</p>
-      {/* <p> {"Review Title: " + props.item.title}</p> */}
-      <p> {"Review Title: " + props.item.name}</p>
-      <p>{"Review: " + props.item.review}</p>
-      <p>{"Rating: " + props.item.rating}</p>
-    </li>
-  )
-}
+// const Item = (props) => {
+//   return (
+//     <li>
+//       <p> {"Movie: " + props.item.movie}</p>
+//       {/* <p> {"Review Title: " + props.item.title}</p> */}
+//       <p> {"Review Title: " + props.item.name}</p>
+//       <p>{"Review: " + props.item.review}</p>
+//       <p>{"Rating: " + props.item.rating}</p>
+//     </li>
+//   )
+// }
 
 export default Review;
