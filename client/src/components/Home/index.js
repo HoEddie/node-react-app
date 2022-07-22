@@ -289,10 +289,10 @@ const Review = () => {
   }*/
 
   //Input handlers
-
+  //Issue: Handlers MIGHT not be updating to changes to initial field inputs 
   const handleSelectedMovie = (event) => {
     setSelectedMovie(event.target.value);
-
+    console.log(event.target.value);
     //Compares selected movie to movie map and returns the movie id
     movieList.map((movieID) => {
       if (movieID.name === event.target.value){
@@ -303,14 +303,20 @@ const Review = () => {
 
   const handleEnteredTitle = (event) => {
     setEnteredTitle(event.target.value);
+    console.log(event.target.value);
+
   };
 
   const handleEnteredReview = (event) => {
     setEnteredReview(event.target.value);
+    console.log(event.target.value);
+
   };
 
   const handleSelectedRating = (event) => {
     setSelectedRating(event.target.value);
+    console.log(event.target.value);
+
   };
 
   //Input Validation
@@ -342,6 +348,7 @@ const Review = () => {
     }
 
     //Call handleAddReview if validation is cleared (send data to Users table)
+    //Issue: userReview doesn't update when another submission is inputted
     if (enteredTitle && enteredReview && selectedRating && selectedMovie) {
       setSubmissionValidation("Your review has been recieved")
       const d =
@@ -427,6 +434,7 @@ const Review = () => {
 const userReview = []
 
 //Outputs user review to site 
+//Issue: Doesn't update when another review is submitted
 const Reviews = () => {
   return (
     <ul>
