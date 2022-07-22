@@ -74,9 +74,13 @@ app.post('/api/addReview', (req, res) => {
 		if (error){
 			return console.error(error.message);
 		}
-
-		let object = JSON.parse(results);
-		res.send({ express: object});
+		console.log(results);
+		
+		let string = JSON.stringify(results);
+		let obj = JSON.parse(string);
+		res.send({ express: string });
+		//let object = JSON.parse(results);
+		//res.send({ express: object});
 	});
 
 	connection.end();

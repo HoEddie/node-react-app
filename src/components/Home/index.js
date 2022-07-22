@@ -379,7 +379,7 @@ const Review = () => {
         alignItems="stretch"
       >
         <Typography variant="h3" gutterBottom>
-          Review a Movie
+          Review 
         </Typography>
 
         <p>
