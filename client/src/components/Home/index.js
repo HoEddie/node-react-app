@@ -1,4 +1,5 @@
 import React, { useState, Component } from 'react';
+import {Router, Switch, Route} from "react-router-dom";
 import { createTheme, ThemeProvider, styled, makeStyles, withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -14,8 +15,8 @@ import FormLabel from '@material-ui/core/FormLabel';
 import Button from '@material-ui/core/Button'
 import PropTypes from 'prop-types';
 //Dev mode
-const serverURL = "http://ec2-18-216-101-119.us-east-2.compute.amazonaws.com:3062"; //enable for dev mode
-//const serverURL = ""; //enable for local development
+//const serverURL = "http://ec2-18-216-101-119.us-east-2.compute.amazonaws.com:3062"; //enable for dev mode
+const serverURL = ""; //enable for local development
 //Deployment mode instructions
 //const serverURL = "http://ov-research-4.uwaterloo.ca:PORT"; //enable for deployed mode; Change PORT to the port number given to you;
 //To find your port number: 
@@ -289,7 +290,7 @@ const Review = () => {
   }*/
 
   //Input handlers
-  //Issue: Handlers MIGHT not be updating to changes to initial field inputs 
+  //Issue: Handlers MIGHT not be updating to changes to initial field inputs, use console.log to see if event values are changing properly
   const handleSelectedMovie = (event) => {
     setSelectedMovie(event.target.value);
     console.log(event.target.value);
@@ -348,7 +349,7 @@ const Review = () => {
     }
 
     //Call handleAddReview if validation is cleared (send data to Users table)
-    //Issue: userReview doesn't update when another submission is inputted
+    //Issue: userReview doesn't update when another submission is inputted, use console.log(userReview) maybe?
     if (enteredTitle && enteredReview && selectedRating && selectedMovie) {
       setSubmissionValidation("Your review has been recieved")
       const d =
@@ -434,7 +435,7 @@ const Review = () => {
 const userReview = []
 
 //Outputs user review to site 
-//Issue: Doesn't update when another review is submitted
+//Issue: Doesn't update when another review is submitted, use console.log(userReview) to check if the reviews are updating
 const Reviews = () => {
   return (
     <ul>

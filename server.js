@@ -133,6 +133,6 @@ app.post('/api/loadUserSettings', (req, res) => {
 
 
 //for the dev version
-//app.listen(port, () => console.log(`Listening on port ${port}`)); //for local testing
+app.listen(port, () => console.log(`Listening on port ${port}`)); //for local testing
 //app.listen(3000, '129.97.25.211'); //for the deployed version, specify the IP address of the server
-app.listen(port, '172.31.31.77'); // for deployment 
+//app.listen(port, '172.31.31.77'); // for deployment 
