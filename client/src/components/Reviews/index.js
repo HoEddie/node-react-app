@@ -16,6 +16,7 @@ import Button from '@material-ui/core/Button'
 import history from '../Navigation/history';
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar';
+import Box from '@material-ui/core/Box';
 import PropTypes from 'prop-types';
 //Dev mode
 //const serverURL = "http://ec2-18-216-101-119.us-east-2.compute.amazonaws.com:3062"; //enable for dev mode
@@ -405,6 +406,8 @@ const Review = () => {
         <p>
           {movieValidation}
         </p>
+
+        
         <MovieSelection 
         onSearch={handleSelectedMovie} 
         movieList = {movieList} 
@@ -416,24 +419,28 @@ const Review = () => {
           {titleValidation}
         </p>
 
+       
         <ReviewTitle onSearch={handleEnteredTitle} />
 
         <p>
           {reviewValidation}
         </p>
-
+        
         <ReviewBody onSearch={handleEnteredReview} />
 
         <p>
           {ratingValidation}
 
         </p>
+
+        
         <ReviewRating onSearch={handleSelectedRating} />
 
         <p>
           {submissionValidation}
         </p>
 
+        
         <Button
           variant="contained"
           color="primary"
@@ -441,7 +448,6 @@ const Review = () => {
         >
           Submit
         </Button>
-
        
         <Reviews />
 
