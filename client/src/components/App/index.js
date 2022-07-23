@@ -9,6 +9,7 @@ import Landing from '../Landing';
 import PrivateRoute from '../Navigation/PrivateRoute.js';
 
 
+
 const App = () => {
 
   return (
@@ -17,6 +18,8 @@ const App = () => {
         <PrivateRoute exact path="/" component={Landing} />
       </div>
     </Router>
+
+    
   );
 }
 

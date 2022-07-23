@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import history from '../Navigation/history';
 import Box from '@material-ui/core/Box';
@@ -13,24 +14,60 @@ import IconButton from '@material-ui/icons/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
 import { Icon } from '@material-ui/core';
 
-const Landing = () => {
-    
-    return (
-        <AppBar position="static">
-            <Toolbar>
-                <Button color= "inherit" onClick={() => history.push('/Search')}>
-                    Search
-                </Button>
-                <Button color= "inherit" onClick={() => history.push('/Reviews')}>
-                    Reviews
-                </Button>
-                <Button color= "inherit" onClick={() => history.push('/MyPage')}>
-                    MyPage
-                </Button>
-                
-            </Toolbar>
 
-        </AppBar>
+const Landing = () => {
+
+
+    return (
+        <div>
+            <AppBar position="static">
+                <Toolbar>
+                    <Button color="inherit" onClick={() => history.push('/Search')}>
+                        Search
+                    </Button>
+                    <Button color="inherit" onClick={() => history.push('/Reviews')}>
+                        Reviews
+                    </Button>
+                    <Button color="inherit" onClick={() => history.push('/MyPage')}>
+                        MyPage
+                    </Button>
+
+                </Toolbar>
+
+            </AppBar>
+            <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+
+            >
+
+
+                <Typography variant="h3" gutterBottom>
+                    Welcome To Reviews245
+                </Typography>
+
+            </Box>
+            <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center">
+                <Typography>
+                    <h4>
+                        This website has the following features:
+                    </h4>
+                    <ul>
+                        <li>A Search feature that allows you to search for movies by title, actor and director</li>
+                        <li>A Review feature that allows you to rate and make reviews on movies from an IMDB database</li>
+                        <li>A MyPage function that lets you do x y z</li>
+                    </ul>
+
+                </Typography>
+            </Box>
+
+        </div>
+
+
         //MUI Example
         //    <AppBar position="static">
         //         <Container maxWidth="x1">

@@ -379,8 +379,8 @@ const Review = () => {
                 <Button color= "inherit" onClick={() => history.push('/MyPage')}>
                     MyPage
                 </Button>
-                <Button color= "inherit" onClick={() => history.push('/Reviews')}>
-                    Reviews
+                <Button color= "inherit" onClick={() => history.push('/Search')}>
+                    Search
                 </Button>
                 <Button color= "inherit" onClick={() => history.push('/')}>
                     Landing
