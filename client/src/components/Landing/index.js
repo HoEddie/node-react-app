@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
+import { styled } from '@material-ui/core/styles';
 import history from '../Navigation/history';
 import Box from '@material-ui/core/Box';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -14,6 +14,9 @@ import IconButton from '@material-ui/icons/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
 import { Icon } from '@material-ui/core';
 
+const MainGridContainer = styled(Grid)(({ theme }) => ({
+    margin: theme.spacing(4),
+}))
 
 const Landing = () => {
 
@@ -29,29 +32,29 @@ const Landing = () => {
                         Reviews
                     </Button>
                     <Button color="inherit" onClick={() => history.push('/MyPage')}>
-                        MyPage
+                        Find Cast
                     </Button>
 
                 </Toolbar>
 
             </AppBar>
-            <Box
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-
+           
+            <MainGridContainer
+                container
+                spacing={1}
+                style={{ maxWidth: '50%' }}
+                direction="column"
+                justify="flex-start"
+                alignItems="stretch"
             >
 
-
+            
                 <Typography variant="h3" gutterBottom>
                     Welcome To Reviews245
                 </Typography>
 
-            </Box>
-            <Box
-                display="flex"
-                justifyContent="center"
-                alignItems="center">
+           
+           
                 <Typography>
                     <h4>
                         This website has the following features:
@@ -59,12 +62,12 @@ const Landing = () => {
                     <ul>
                         <li>A Search feature that allows you to search for movies by title, actor and director</li>
                         <li>A Review feature that allows you to rate and make reviews on movies from an IMDB database</li>
-                        <li>A MyPage function that lets you do x y z</li>
+                        <li>A Find Cast feature that allows you to search for a movie and see it's cast</li>
                     </ul>
 
                 </Typography>
-            </Box>
-
+            
+            </MainGridContainer>
         </div>
 
 

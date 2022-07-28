@@ -85,58 +85,116 @@ app.post('/api/addReview', (req, res) => {
 
 	connection.end();
 })
-/*
-app.post('/api/loadRecipes', (req, res) => {
-	let string = JSON.stringify(recipes);
-	console.log(string);
-	res.send({ express: string });
-});*/
 
-/*
-app.post('/api/findRecipe', (req, res) => {
-	let ingredientSearchTerm = req.body.searchTerm;
-	console.log("ingredientSearchTerm: ", ingredientSearchTerm);
-
-	const foundRecipesByIngredients = recipes.filter(function (recipe) {
-		if (ingredientSearchTerm) {
-			console.log('Filtered by: ', ingredientSearchTerm);
-			return recipe.ingredients.includes(ingredientSearchTerm);
-		} else {
-			return recipe;
-		}
-	});
-	let string = JSON.stringify(foundRecipesByIngredients);
-	console.log(string);
-	let obj = JSON.parse(string);
-	res.send({ express: string });
-});*/
-/*
-app.post('/api/loadUserSettings', (req, res) => {
-
+app.post('/api/movieInfo' , (req,res) => {
 	let connection = mysql.createConnection(config);
-	let userID = req.body.userID;
-	console.log("UserID: ", userID);
+	let data = [];
+	let sqlFiller = '';
+	let movieName = '';
+	let sql = 
+	`SELECT DISTINCT 
+	movies.name, 
+	GROUP_CONCAT(DISTINCT CONCAT(actors.first_name, " ", actors.last_name)) AS actors_name
+	FROM movies
+	JOIN roles ON roles.movie_id = movies.id
+	JOIN actors ON actors.id = roles.actor_id
+	WHERE `;
 
-	let sql = `SELECT mode FROM user WHERE userID = ?`;
-	console.log(sql);
-	let data = [userID];
-	console.log(data);
+	if (req.body.name !== '') {
+		movieName = "name LIKE ?";
+		data.push("%" + req.body.name + "%");
+	}
 
-	connection.query(sql, data, (error, results, fields) => {
+	if (movieName !== ''){
+		if (sqlFiller !== ''){
+			sqlFiller += " AND ";
+		};
+		sqlFiller += movieName;
+	};
+
+	sql += sqlFiller + 'GROUP BY name ORDER BY name';
+	connection.query(sql, data, (error, results) => {
 		if (error) {
 			return console.error(error.message);
 		}
 
 		let string = JSON.stringify(results);
-		let obj = JSON.parse(string);
+
 		res.send({ express: string });
 	});
+
 	connection.end();
+});
 
-});*/
+app.post('/api/movieSearch', (req, res) => {
 
+	let connection = mysql.createConnection(config);
+
+	let data = [];
+
+	let sqlFiller = '';
+	let nameSearch = '';
+	let actorSearch = '';
+	let directorSearch = '';
+
+	let sql =
+		`SELECT DISTINCT 
+		movies.name, 
+		GROUP_CONCAT(DISTINCT CONCAT(directors.first_name, " ", directors.last_name)) AS director_name,
+		AVG(Review.reviewScore) AS avg_score,
+		GROUP_CONCAT(DISTINCT CONCAT("Review: ", Review.reviewContent, " - Score: ", Review.reviewScore)) AS reviews
+		FROM movies
+		JOIN movies_directors ON movies_directors.movie_id = movies.id
+		JOIN directors ON directors.id = movies_directors.director_id
+        JOIN roles ON roles.movie_id = movies.id
+        JOIN actors ON actors.id = roles.actor_id
+		LEFT JOIN Review ON Review.movies_id = movies.id
+		WHERE `;
+
+
+	if (req.body.name !== '') {
+		nameSearch = "name LIKE ?";
+		data.push("%" + req.body.name + "%");
+	}
+
+	if (req.body.actor !== '') {
+		actorSearch = 'CONCAT(actors.first_name, \" \", actors.last_name) LIKE ?';
+		data.push("%" + req.body.actor + "%");
+	}
+
+	if (req.body.director !== '') {
+		directorSearch = "CONCAT(directors.first_name, \" \", directors.last_name) LIKE ?";
+		data.push("%" + req.body.director + "%");
+	}
+
+	let searchBar = [nameSearch, actorSearch, directorSearch];
+
+	searchBar.map(function (filter) {
+		if (filter !== '') {
+			if (sqlFiller !== '') {
+				sqlFiller += " AND ";
+			};
+			sqlFiller += filter;
+		};
+	});
+
+	sql += sqlFiller + ` GROUP BY name ORDER BY name`;
+	console.log(sql);
+
+	connection.query(sql, data, (error, results) => {
+		if (error) {
+			return console.error(error.message);
+		}
+
+		let string = JSON.stringify(results);
+
+		res.send({ express: string });
+	});
+
+	connection.end();
+});
 
 //for the dev version
-app.listen(port, () => console.log(`Listening on port ${port}`)); //for local testing
+//app.listen(port, () => console.log(`Listening on port ${port}`)); //for local testing
 //app.listen(3000, '129.97.25.211'); //for the deployed version, specify the IP address of the server
-//app.listen(port, '172.31.31.77'); // for deployment 
+app.listen(port, '172.31.31.77'); // for deployment 

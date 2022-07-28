@@ -19,8 +19,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Box from '@material-ui/core/Box';
 import PropTypes from 'prop-types';
 //Dev mode
-//const serverURL = "http://ec2-18-216-101-119.us-east-2.compute.amazonaws.com:3062"; //enable for dev mode
-const serverURL = ""; //enable for local development
+const serverURL = "http://ec2-18-216-101-119.us-east-2.compute.amazonaws.com:3062"; //enable for dev mode
+//const serverURL = ""; //enable for local development
 //Deployment mode instructions
 //const serverURL = "http://ov-research-4.uwaterloo.ca:PORT"; //enable for deployed mode; Change PORT to the port number given to you;
 //To find your port number: 
@@ -378,7 +378,7 @@ const Review = () => {
       <AppBar position="static">
             <Toolbar>
                 <Button color= "inherit" onClick={() => history.push('/MyPage')}>
-                    MyPage
+                    Find Cast
                 </Button>
                 <Button color= "inherit" onClick={() => history.push('/Search')}>
                     Search
